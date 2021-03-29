@@ -14,8 +14,12 @@ const char* documents_ext[] = {".doc", ".docx", ".html", ".htm", ".odt", ".ods",
 const char* images_ext[] = {".tif", ".tiff", ".bmp", ".jpg", ".jpeg", ".gif", ".png", ".eps", ".raw", ".cr2", ".nef", ".sr2", ".orf"};
 
 bool endsWith(const char *str, const char *suffix);
+char *strlwr(char *str);
+// bool anyIn(char *str, char *arrstr[]);
 
 int main() {
+	int index;
+
 	struct passwd *pw = getpwuid(getuid());
 	char* Home = pw -> pw_dir;
 	
@@ -34,11 +38,45 @@ int main() {
 	
 	DIR* directory;
 	struct dirent* dir;
-
+	
+	size_t len_videos_ext = sizeof(videos_ext) / sizeof(videos_ext[0]);
+	size_t len_audios_ext = sizeof(audios_ext) / sizeof(audios_ext[0]);
+	size_t len_documents_ext = sizeof(documents_ext) / sizeof(documents_ext[0]);
+	size_t len_images_ext = sizeof(images_ext) / sizeof(images_ext[0]);
+	
 	directory = opendir(Downloads);
 	if (directory) {
 	    	while ((dir = readdir(directory)) != NULL) {
 		      char* list = dir -> d_name;
+		      strlwr(list);
+
+		      // If any in list of videos extension (videos_ext) matches with the one listed in directory
+		      for (index = 0; index < len_videos_ext; index++) {
+			  if (endsWith(list, videos_ext[index])) {
+				
+			  }
+		      }
+
+		      // If any in list of audios extension (audio_ext) matches with the one listed in directory
+		      for (index = 0; index < len_audios_ext; index++) {
+			  if (endsWith(list, audios_ext[index])) {
+				
+			  }
+		      }
+
+		      // If any in list of documents extension (documents_ext) matches with the one listed in directory
+		      for (index = 0; index < len_documents_ext; index++) {
+			  if (endsWith(list, documents_ext[index])) {
+				
+			  }
+		      }
+
+		      // If any in list of images extension (images_ext) matches with the one listed in directory
+		      for (index = 0; index < len_images_ext; index++) {
+			  if (endsWith(list, images_ext[index])) {
+				
+			  }
+		      }
 		}
     		closedir(directory);
 	}
@@ -53,3 +91,16 @@ bool endsWith(const char* string, const char* suffix) {
     return strncmp(string + lenstring - lensuffix, suffix, lensuffix) == 0;
 }
 
+/* Since strlwr from 'string.h' is not standard I have to implement it by my self */
+char *strlwr(char *str) {
+  unsigned char *strp = (unsigned char *)str;
+
+  while (*strp) {
+     *strp = tolower((unsigned char)*strp);
+      strp++;
+  }
+
+  return str;
+}
+
+// bool anyIn(char *str, char *arrstr[]); {}
