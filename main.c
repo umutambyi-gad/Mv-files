@@ -3,6 +3,7 @@
 #include <pwd.h>
 #include <string.h>
 #include <stdio.h>
+#include <dirent.h>
 
 
 int main() {
@@ -21,5 +22,17 @@ int main() {
 	strcat(strcpy(Pictures, Home), "/Pictures");
 	strcat(strcpy(Music, Home), "/Music");
 	
+	DIR* directory;
+	struct dirent* dir;
+
+	directory = opendir(Downloads);
+	if (directory) {
+	    	while ((dir = readdir(directory)) != NULL) {
+		      printf("%s\n", dir -> d_name);
+		}
+    		closedir(directory);
+	}
+
+	return 0;
 }
 
