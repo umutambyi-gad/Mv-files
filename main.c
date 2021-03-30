@@ -34,10 +34,10 @@ int main() {
 
 	strcat(strcpy(Downloads, Home), "/Downloads/");
 
-	strcat(strcpy(Documents, Home), "Documents");
-	strcat(strcpy(Videos, Home), "Videos");
-	strcat(strcpy(Pictures, Home), "Pictures");
-	strcat(strcpy(Music, Home), "Music"); // Audios only
+	strcat(strcpy(Documents, Home), "/Documents/");
+	strcat(strcpy(Videos, Home), "/Videos/");
+	strcat(strcpy(Pictures, Home), "/Pictures/");
+	strcat(strcpy(Music, Home), "/Music/"); // Audios only
 	
 	DIR* directory;
 	struct dirent* dir;
@@ -51,45 +51,57 @@ int main() {
 	if (directory) {
 	    	while ((dir = readdir(directory)) != NULL) {
 		      char* list = dir -> d_name;
-		      strlwr(list);
+		      char *listlwr = (char*) malloc(250 * sizeof(char));
+                      strcpy(listlwr, list);
+		      strlwr(listlwr);
 		      
 		      // If any in list of videos extension (videos_ext) matches with the one listed in directory
 		      for (index = 0; index < len_videos_ext; index++) {
-			  if (endsWith(list, videos_ext[index])) {
-				char* joint = join(Downloads, list);
-				printf("VIDEOS: %s\n\n", joint);
-				free(joint);
+			  if (endsWith(listlwr, videos_ext[index])) {
+				char* source = join(Downloads, list);
+				char*  destination = join(Videos, list);
+				if (rename(source, destination) != 0) perror("Error: \n");
+				free(source);
+				free(destination);
 			  }
 		      }
 
 		      // If any in list of audios extension (audio_ext) matches with the one listed in directory
 		      for (index = 0; index < len_audios_ext; index++) {
-			  if (endsWith(list, audios_ext[index])) {
-				char* joint = join(Downloads, list);
-				printf("AUDIOS: %s\n\n", joint);
-				free(joint);
+			  if (endsWith(listlwr, audios_ext[index])) {
+				char* source = join(Downloads, list);
+				char*  destination = join(Music, list);
+				if (rename(source, destination) != 0) perror("Error: \n");
+				free(source);
+				free(destination);
 			  }
 		      }
 
 		      // If any in list of documents extension (documents_ext) matches with the one listed in directory
 		      for (index = 0; index < len_documents_ext; index++) {
-			  if (endsWith(list, documents_ext[index])) {
-				char* joint = join(Downloads, list);
-				printf("DOCUMENTS: %s\n\n", joint);
-				free(joint);
+			  if (endsWith(listlwr, documents_ext[index])) {
+				char* source = join(Downloads, list);
+				char*  destination = join(Documents, list);
+				if (rename(source, destination) != 0) perror("Error: \n");
+				free(source);
+				free(destination);
 			  }
 		      }
 
 		      // If any in list of images extension (images_ext) matches with the one listed in directory
 		      for (index = 0; index < len_images_ext; index++) {
-			  if (endsWith(list, images_ext[index])) {
-				char* joint = join(Downloads, list);
-				printf("IMAGES: %s\n\n", joint);
-				free(joint);
+			  if (endsWith(listlwr, images_ext[index])) {
+				char* source = join(Downloads, list);
+				char*  destination = join(Pictures, list);
+				if (rename(source, destination) != 0) perror("Error: \n");
+				free(source);
+				free(destination);
 			  }
 		      }
+		      free(listlwr);
 		}
     		closedir(directory);
+
 		free(Videos);
 		free(Music);
 		free(Pictures);
@@ -117,7 +129,7 @@ char *strlwr(char *str) {
   return str;
 }
 
-/* Function for  joining two string (paths) and return new string */
+/* Function for joining two string (paths) and return new string */
 char *join(char *firstpath, char *secondpath) {
    char* fullpath = (char*) malloc(250 * sizeof(char));
    strcpy(fullpath, firstpath);
