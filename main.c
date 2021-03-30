@@ -1,4 +1,4 @@
-	#include <unistd.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
 #include <string.h>
@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 #define len(list) sizeof(list) / sizeof(list[0]);
 
