@@ -9,6 +9,7 @@
 
 #define len(list) sizeof(list) / sizeof(list[0]);
 
+
 const char* videos_ext[] = {".webm", ".mkv", ".flv", ".vob", ".mp4", ".m4p", ".m4v", ".mpg", ".mpeg", ".mpg2", ".3gp", ".asf"};
 const char* audios_ext[] = {".mp3", ".aac", ".wav", ".wma", ".flac", ".alac", ".aiff", ".dsd", ".pcm"};
 const char* documents_ext[] = {".doc", ".docx", ".html", ".htm", ".odt", ".ods", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".txt"};
@@ -16,6 +17,7 @@ const char* images_ext[] = {".tif", ".tiff", ".bmp", ".jpg", ".jpeg", ".gif", ".
 
 bool endsWith(const char *str, const char *suffix);
 char *strlwr(char *str);
+char *join(char *firstpath, char *secondpath);
 
 int main() {
 	int index;
@@ -53,40 +55,28 @@ int main() {
 		      // If any in list of videos extension (videos_ext) matches with the one listed in directory
 		      for (index = 0; index < len_videos_ext; index++) {
 			  if (endsWith(list, videos_ext[index])) {
-				char fullpath[100];
-				strcpy(fullpath, Downloads);
-				strcat(fullpath, list);
-				printf("VIDEOS: %s\n\n", fullpath);
+				printf("VIDEOS: %s\n\n", join(Downloads, list));
 			  }
 		      }
 
 		      // If any in list of audios extension (audio_ext) matches with the one listed in directory
 		      for (index = 0; index < len_audios_ext; index++) {
 			  if (endsWith(list, audios_ext[index])) {
-				char fullpath[100];
-				strcpy(fullpath, Downloads);
-				strcat(fullpath, list);
-				printf("AUDIOS: %s\n\n", fullpath);
+				printf("AUDIOS: %s\n\n", join(Downloads, list));
 			  }
 		      }
 
 		      // If any in list of documents extension (documents_ext) matches with the one listed in directory
 		      for (index = 0; index < len_documents_ext; index++) {
 			  if (endsWith(list, documents_ext[index])) {
-				char fullpath[100];
-				strcpy(fullpath, Downloads);
-				strcat(fullpath, list);
-				printf("DOCUMENTS: %s\n\n", fullpath);
+				printf("DOCUMENTS: %s\n\n", join(Downloads, list));
 			  }
 		      }
 
 		      // If any in list of images extension (images_ext) matches with the one listed in directory
 		      for (index = 0; index < len_images_ext; index++) {
 			  if (endsWith(list, images_ext[index])) {
-				char fullpath[100];
-				strcpy(fullpath, Downloads);
-				strcat(fullpath, list);
-				printf("IMAGES: %s\n\n", fullpath);
+				printf("IMAGES: %s\n\n", join(Downloads, list));
 			  }
 		      }
 		}
@@ -111,7 +101,13 @@ char *strlwr(char *str) {
      *strp = tolower((unsigned char)*strp);
       strp++;
   }
-
   return str;
+}
+
+/* Function for  joining two string (paths) and return new string */
+char *join(char *firstpath, char *secondpath) {
+   char fullpath[100];
+   strcpy(fullpath, firstpath);
+   return strcat(fullpath, secondpath);
 }
 
