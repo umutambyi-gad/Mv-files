@@ -1,4 +1,4 @@
-#include <unistd.h>
+	#include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
 #include <string.h>
@@ -29,12 +29,12 @@ int main() {
 	char Pictures[100];
 	char Documents[100];
 
-	strcat(strcpy(Downloads, Home), "/Downloads");
+	strcat(strcpy(Downloads, Home), "/Downloads/");
 
-	strcat(strcpy(Documents, Home), "/Documents");
-	strcat(strcpy(Videos, Home), "/Videos");
-	strcat(strcpy(Pictures, Home), "/Pictures");
-	strcat(strcpy(Music, Home), "/Music"); // Audios only
+	strcat(strcpy(Documents, Home), "Documents");
+	strcat(strcpy(Videos, Home), "Videos");
+	strcat(strcpy(Pictures, Home), "Pictures");
+	strcat(strcpy(Music, Home), "Music"); // Audios only
 	
 	DIR* directory;
 	struct dirent* dir;
@@ -49,32 +49,44 @@ int main() {
 	    	while ((dir = readdir(directory)) != NULL) {
 		      char* list = dir -> d_name;
 		      strlwr(list);
-
+		      
 		      // If any in list of videos extension (videos_ext) matches with the one listed in directory
 		      for (index = 0; index < len_videos_ext; index++) {
 			  if (endsWith(list, videos_ext[index])) {
-				printf("VIDEOS: %s\n", list);
+				char fullpath[100];
+				strcpy(fullpath, Downloads);
+				strcat(fullpath, list);
+				printf("VIDEOS: %s\n\n", fullpath);
 			  }
 		      }
 
 		      // If any in list of audios extension (audio_ext) matches with the one listed in directory
 		      for (index = 0; index < len_audios_ext; index++) {
 			  if (endsWith(list, audios_ext[index])) {
-				printf("AUDIOS: %s\n", list);
+				char fullpath[100];
+				strcpy(fullpath, Downloads);
+				strcat(fullpath, list);
+				printf("AUDIOS: %s\n\n", fullpath);
 			  }
 		      }
 
 		      // If any in list of documents extension (documents_ext) matches with the one listed in directory
 		      for (index = 0; index < len_documents_ext; index++) {
 			  if (endsWith(list, documents_ext[index])) {
-				printf("DOCUMENTS: %s\n", list);
+				char fullpath[100];
+				strcpy(fullpath, Downloads);
+				strcat(fullpath, list);
+				printf("DOCUMENTS: %s\n\n", fullpath);
 			  }
 		      }
 
 		      // If any in list of images extension (images_ext) matches with the one listed in directory
 		      for (index = 0; index < len_images_ext; index++) {
 			  if (endsWith(list, images_ext[index])) {
-				printf("IMAGES: %s\n", list);
+				char fullpath[100];
+				strcpy(fullpath, Downloads);
+				strcat(fullpath, list);
+				printf("IMAGES: %s\n\n", fullpath);
 			  }
 		      }
 		}
