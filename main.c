@@ -26,11 +26,11 @@ int main() {
 	struct passwd *pw = getpwuid(getuid());
 	char* Home = pw -> pw_dir;
 	
-	char Downloads[100];
-	char Videos[100];
-	char Music[100];
-	char Pictures[100];
-	char Documents[100];
+	char *Downloads = (char*) malloc(250 * sizeof(char));
+	char *Videos = (char*) malloc(250 * sizeof(char));
+	char *Music = (char*) malloc(250 * sizeof(char));
+	char *Pictures = (char*) malloc(250 * sizeof(char));
+	char *Documents = (char*) malloc(250 * sizeof(char));
 
 	strcat(strcpy(Downloads, Home), "/Downloads/");
 
@@ -107,7 +107,7 @@ char *strlwr(char *str) {
 
 /* Function for  joining two string (paths) and return new string */
 char *join(char *firstpath, char *secondpath) {
-   char fullpath[100];
+   char* fullpath = (char*) malloc(250 * sizeof(char));
    strcpy(fullpath, firstpath);
    return strcat(fullpath, secondpath);
 }
