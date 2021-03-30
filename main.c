@@ -16,7 +16,6 @@ const char* images_ext[] = {".tif", ".tiff", ".bmp", ".jpg", ".jpeg", ".gif", ".
 
 bool endsWith(const char *str, const char *suffix);
 char *strlwr(char *str);
-// bool anyIn(char *str, char *arrstr[]);
 
 int main() {
 	int index;
@@ -104,4 +103,3 @@ char *strlwr(char *str) {
   return str;
 }
 
-// bool anyIn(char *str, char *arrstr[]); {}
