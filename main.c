@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define len(list) sizeof(list) / sizeof(list[0]);
 
 const char* videos_ext[] = {".webm", ".mkv", ".flv", ".vob", ".mp4", ".m4p", ".m4v", ".mpg", ".mpeg", ".mpg2", ".3gp", ".asf"};
 const char* audios_ext[] = {".mp3", ".aac", ".wav", ".wma", ".flac", ".alac", ".aiff", ".dsd", ".pcm"};
@@ -39,10 +40,10 @@ int main() {
 	DIR* directory;
 	struct dirent* dir;
 	
-	size_t len_videos_ext = sizeof(videos_ext) / sizeof(videos_ext[0]);
-	size_t len_audios_ext = sizeof(audios_ext) / sizeof(audios_ext[0]);
-	size_t len_documents_ext = sizeof(documents_ext) / sizeof(documents_ext[0]);
-	size_t len_images_ext = sizeof(images_ext) / sizeof(images_ext[0]);
+	size_t len_videos_ext = len(videos_ext);
+	size_t len_audios_ext = len(audios_ext);
+	size_t len_documents_ext = len(documents_ext);
+	size_t len_images_ext = len(images_ext);
 	
 	directory = opendir(Downloads);
 	if (directory) {
@@ -53,28 +54,28 @@ int main() {
 		      // If any in list of videos extension (videos_ext) matches with the one listed in directory
 		      for (index = 0; index < len_videos_ext; index++) {
 			  if (endsWith(list, videos_ext[index])) {
-				
+				printf("VIDEOS: %s\n", list);
 			  }
 		      }
 
 		      // If any in list of audios extension (audio_ext) matches with the one listed in directory
 		      for (index = 0; index < len_audios_ext; index++) {
 			  if (endsWith(list, audios_ext[index])) {
-				
+				printf("AUDIOS: %s\n", list);
 			  }
 		      }
 
 		      // If any in list of documents extension (documents_ext) matches with the one listed in directory
 		      for (index = 0; index < len_documents_ext; index++) {
 			  if (endsWith(list, documents_ext[index])) {
-				
+				printf("DOCUMENTS: %s\n", list);
 			  }
 		      }
 
 		      // If any in list of images extension (images_ext) matches with the one listed in directory
 		      for (index = 0; index < len_images_ext; index++) {
 			  if (endsWith(list, images_ext[index])) {
-				
+				printf("IMAGES: %s\n", list);
 			  }
 		      }
 		}
