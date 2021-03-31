@@ -74,4 +74,5 @@ On Linux I think it's something like
 ./main.exe
 ```
 Then done. just check if everything goes well and if is not and can't figure out why? you can simply raise an issue I will be right there
-
+## License
+This project is under the [MIT](https://github.com/umutambyi-gad/Mv-files/blob/master/LICENSE) License
