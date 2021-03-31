@@ -2,6 +2,17 @@
 
 Mv-files is C script for moving files ends with particular suffix (extension) from one folder to the desired destination on the same file system.
 
+## Table of content
+
+<ul>
+  <li><b><a href="#why-i-made-this">Why I made this?</a></b></li>
+  <li><b><a href="#author">Author</a></b></li>
+  <li><b><a href="#description">Description</a></b></li>
+  <li><b><a href="#usage">Usage</a></b></li>
+  <li><b><a href="#license">License</a></b></li>
+</ul>
+
+
 ## Why I made this?
 
 What if is you asking me? I will say **Good question**, Since I'm dev I mean Junior one I download bunch of different files
@@ -10,6 +21,15 @@ where I want but that will still not be the great and I know it doesn't sounds t
 be html docs , videos, audios, xls files, images, etc.
 So that's why I created script where you can simply categories files by their extensions and move them where you want by their categories. and also
 files can't only be in the Downloads can be everywhere you want it to be. just continue to read and you'll star the repo later.
+
+## Author
+**Website:** [umutambyigad](https://umutambyigad.herokuapp.com) <br>
+**Stackoverflow:** [@umutambyi-gad](https://stackoverflow.com/users/13536893/umutambyi-gad) <br>
+**Twitter:** [@umutambyi_gad](https://twitter.com/umutambyi_gad) <br>
+**Linkedin:**  [@umutambyi-gad](https://www.linkedin.com/in/umutambyi-gad/) <br>
+**Dev.to:** [@umutambyigad](https://dev.to/umutambyigad) <br>
+**Email:** [umutambyig@gmail.com](mailto:umutambyig@gmail.com) <br>
+
 
 ## Description
 
