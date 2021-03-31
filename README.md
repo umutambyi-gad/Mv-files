@@ -5,7 +5,7 @@ Mv-files is C script for moving files ends with particular suffix (extension) fr
 ## Why I made this?
 
 What if is you asking me? I will say **Good question**, Since I'm dev I mean Junior one I download bunch of different files
-and all of them by default stored in `Downloads` and I know I can select all, <kbd>ctrl</kbd> + <kbd>x<kbd> and <kbd>ctrl</kbd> + <kbd>v<kbd>
+and all of them by default stored in `Downloads` and I know I can select all, <kbd>ctrl</kbd> + <kbd>x<kbd> and <kbd>ctrl</kbd> + <kbd>v</kbd>
 where I want but that will still not be the great and I know it doesn't sounds tough because where I pasted it, will still not organised there will
 be html docs , videos, audios, xls files, images, etc.
 So that's why I created script where you can simply categories files by their extensions and move them where you want by their categories. and also
