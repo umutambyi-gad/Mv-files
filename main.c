@@ -12,8 +12,8 @@
 #define len(list) sizeof(list) / sizeof(list[0])
 
 
-#define show false // If show is true script will only show you the matches
-#define execute false // If execute is true script will be only executed
+#define show true // If show is true script will only show you the matches
+#define execute true // If execute is true script will be only executed
 /* Notice: if both are true script will show up and be executed */
 
 
@@ -25,16 +25,16 @@ char DestinationForDocuments[250]; // Directory to paste all documents founded i
 
 
 /* All possible video extensions */
-const char* videos_ext[] = {".webm", ".mkv", ".flv", ".vob", ".mp4", ".m4p", ".m4v", ".mpg", ".mpeg", ".mpg2", ".3gp", ".asf"};
+const char *video_ext[] = {".webm", ".mkv", ".flv", ".vob", ".mp4", ".m4p", ".m4v", ".mpg", ".mpeg", ".mpg2", ".3gp", ".asf"};
 
 /* All possible audio extensions */
-const char* audios_ext[] = {".mp3", ".aac", ".wav", ".wma", ".flac", ".alac", ".aiff", ".dsd", ".pcm"};
+const char *audio_ext[] = {".mp3", ".aac", ".wav", ".wma", ".flac", ".alac", ".aiff", ".dsd", ".pcm"};
 
 /* All possible document extensions */
-const char* documents_ext[] = {".doc", ".docx", ".html", ".htm", ".odt", ".ods", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".txt"};
+const char *document_ext[] = {".doc", ".docx", ".html", ".htm", ".odt", ".ods", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".txt"};
 
 /* All possible image extensions */
-const char* images_ext[] = {".tif", ".tiff", ".bmp", ".jpg", ".jpeg", ".gif", ".png", ".eps", ".raw", ".cr2", ".nef", ".sr2", ".orf"};
+const char *image_ext[] = {".tif", ".tiff", ".bmp", ".jpg", ".jpeg", ".gif", ".png", ".eps", ".raw", ".cr2", ".nef", ".sr2", ".orf"};
 
 
 bool endsWith(const char *str, const char *suffix);
@@ -54,7 +54,7 @@ int main() {
 	char doc_list[255][255];
 
 	struct passwd *pw = getpwuid(getuid());
-	char* homeDirectory = pw -> pw_dir;
+	char *homeDirectory = pw -> pw_dir;
 
 
 	/* 
@@ -74,27 +74,27 @@ int main() {
 	
 
 	DIR* directory;
-	struct dirent* dir;
+	struct dirent *dir;
 	
-	size_t len_videos_ext = len(videos_ext);
-	size_t len_audios_ext = len(audios_ext);
-	size_t len_documents_ext = len(documents_ext);
-	size_t len_images_ext = len(images_ext);
+	size_t len_video_ext = len(video_ext); // length of video_ext array (list)
+	size_t len_audio_ext = len(audio_ext);
+	size_t len_document_ext = len(document_ext);
+	size_t len_image_ext = len(image_ext);
 
 	directory = opendir(LookUpDirectory);
 	if (directory) {
 	    	while ((dir = readdir(directory)) != NULL) {
-		      char* list = dir -> d_name; // list of all files founded in look up directory (LookUpDirectory)
+		      char *list = dir -> d_name; // list of all files founded in look up directory (LookUpDirectory)
 
-		      char *listlwr = (char*) malloc(250 * sizeof(char));
+		      char *listlwr = (char *)malloc(250 * sizeof(char));
                       strcpy(listlwr, list); // cloning list in listlwr
 		      strlwr(listlwr); // lowering listlwr to compare it with lower listed extensions safely
 		      
 		      // If any listed file from the look up directory (LookUpDirectory) ends with any of video extensions (videos_ext) list
-		      for (index = 0; index < len_videos_ext; index++) {
-			  if (endsWith(listlwr, videos_ext[index])) {
-				char* source = join(LookUpDirectory, list);
-				char*  destination = join(DestinationForVideos, list);
+		      for (index = 0; index < len_video_ext; index++) {
+			  if (endsWith(listlwr, video_ext[index])) {
+				char *source = join(LookUpDirectory, list); // Joining Lookup directory and all files founded in
+				char *destination = join(DestinationForVideos, list); // Joining destionation directory and files wanted to be there
 				
 				/* if show is true script will show up all of matches */
 				if (show) {
@@ -113,10 +113,10 @@ int main() {
 		      }
 
 		      // If any listed file from the look up directory (LookUpDirectory) ends with any of audio extensions (audios_ext) list
-		      for (index = 0; index < len_audios_ext; index++) {
-			  if (endsWith(listlwr, audios_ext[index])) {
-				char* source = join(LookUpDirectory, list);
-				char*  destination = join(DestinationForMusic, list);
+		      for (index = 0; index < len_audio_ext; index++) {
+			  if (endsWith(listlwr, audio_ext[index])) {
+				char *source = join(LookUpDirectory, list);
+				char *destination = join(DestinationForMusic, list);
 
 				/* if show is true script will show up all of matches */
 				if (show) {
@@ -135,10 +135,10 @@ int main() {
 		      }
 
 		      // If any listed file from the look up directory (LookUpDirectory) ends with any of image extensions (images_ext) list
-		      for (index = 0; index < len_images_ext; index++) {
-			  if (endsWith(listlwr, images_ext[index])) {
-				char* source = join(LookUpDirectory, list);
-				char*  destination = join(DestinationForPictures, list);
+		      for (index = 0; index < len_image_ext; index++) {
+			  if (endsWith(listlwr, image_ext[index])) {
+				char *source = join(LookUpDirectory, list);
+				char *destination = join(DestinationForPictures, list);
 
 				/* if show is true script will show up all of matches */
 				if (show) {
@@ -157,10 +157,10 @@ int main() {
 		      }
 
 		      // If any listed file from the look up directory (LookUpDirectory) ends with any of document extensions (documents_ext) list
-		      for (index = 0; index < len_documents_ext; index++) {
-			  if (endsWith(listlwr, documents_ext[index])) {
-				char* source = join(LookUpDirectory, list);
-				char*  destination = join(DestinationForDocuments, list);
+		      for (index = 0; index < len_document_ext; index++) {
+			  if (endsWith(listlwr, document_ext[index])) {
+				char *source = join(LookUpDirectory, list);
+				char *destination = join(DestinationForDocuments, list);
 
 				/* if show is true script will show up all of matches */
 				if (show) {
@@ -212,7 +212,7 @@ int main() {
 
                    for (index = 0; index < doc_counter; index++) {
 		       if (index == 0)
-			  printf("---------------------------------- DOCUMENTS --------------------------\n");
+			  printf("------------------------------- DOCUMENTS -----------------------------\n\n");
 
 		       printf("%s\n", doc_list[index]);
 
@@ -234,6 +234,8 @@ int main() {
 	return 0;
 }
 
+
+/* Function to check if string ends with given suffix */
 bool endsWith(const char* string, const char* suffix) {
     if (!string || !suffix) return false;
     size_t lenstring = strlen(string);
@@ -255,7 +257,7 @@ char *strlwr(char *str) {
 
 /* Function for joining two string (paths) and return new string */
 char *join(char *firstpath, char *secondpath) {
-   char* fullpath = (char*) malloc(250 * sizeof(char));
+   char *fullpath = (char *)malloc(250 * sizeof(char));
    strcpy(fullpath, firstpath);
    return strcat(fullpath, secondpath);
 }
