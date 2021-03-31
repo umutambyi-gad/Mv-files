@@ -73,7 +73,8 @@ And you can now compile your code that's what I wanted you to know first.
 #define execute true
 ```
 both by default are `true` so here is what these macros do, if `show` is true the script just print in console all matches
-and their categories and after give out an overview of them I called it summary.
+and their categories and after give out an overview of them I called it summary. see the picture bellow -
+![when show is true](https://user-images.githubusercontent.com/65312850/113211387-ee759400-9264-11eb-848d-51f395d79548.png)
 
 and if `execute` is true, simple the script will be executed I'll suggest to initialize this to `false` and first checkout the matches where
 `show` will be only one set to `true`.
