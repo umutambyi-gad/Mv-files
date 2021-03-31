@@ -11,16 +11,17 @@
 
 #define len(list) sizeof(list) / sizeof(list[0])
 
+
+#define show false // If show is true script will only show you the matches
+#define execute false // If execute is true script will be only executed
+/* Notice: if both are true script will show up and be executed */
+
+
 char LookUpDirectory[250]; // Directory to look up all files - By default is .../Downloads/
 char DestinationForVideos[250]; // Directory to paste all videos founded in the `LookUpDirectory` - By default is .../Videos/
 char DestinationForMusic[250]; // Directory to paste all music(Audios) founded in the `LookUpDirectory` - By default is .../Music/
 char DestinationForPictures[250]; // Directory to paste all pictures founded in the `LookUpDirectory` - By default is .../Pictures/
 char DestinationForDocuments[250]; // Directory to paste all documents founded in the `LookUpDirectory` - By default is .../Documents/
-
-
-bool show = true; // If show is true script will only show you the matches
-bool execute = false; // If execute is true script will be only executed
-/* Notice: if both are true script will show up and be executed */
 
 
 /* All possible video extensions */
