@@ -9,14 +9,18 @@
 #include <stdlib.h>
 
 
-#define len(list) sizeof(list) / sizeof(list[0]);
+#define len(list) sizeof(list) / sizeof(list[0])
+
+char LookUpDirectory[250]; // Directory to look up all files - By default is .../Downloads/
+char DestinationForVideos[250]; // Directory to paste all videos founded in the `LookUpDirectory` - By default is .../Videos/
+char DestinationForMusic[250]; // Directory to paste all music(Audios) founded in the `LookUpDirectory` - By default is .../Music/
+char DestinationForPictures[250]; // Directory to paste all pictures founded in the `LookUpDirectory` - By default is .../Pictures/
+char DestinationForDocuments[250]; // Directory to paste all documents founded in the `LookUpDirectory` - By default is .../Documents/
 
 
-char LookUpDirectory[250]; // Directory to look up all files - By default is /Downloads/
-char DestinationForVideos[250]; // Directory to paste all videos founded in the `LookUpDirectory` - By default is /Videos/
-char DestinationForMusic[250]; // Directory to paste all music(Audios) founded in the `LookUpDirectory` - By default is /Music/
-char DestinationForPictures[250]; // Directory to paste all pictures founded in the `LookUpDirectory` - By default is /Pictures/
-char DestinationForDocuments[250]; // Directory to paste all documents founded in the `LookUpDirectory` - By default is /Documents/
+bool show = true; // If show is true script will only show you the matches
+bool execute = false; // If execute is true script will be only executed
+/* Notice: if both are true script will show up and be executed */
 
 
 /* All possible video extensions */
@@ -39,6 +43,14 @@ char *join(char *firstpath, char *secondpath);
 
 int main() {
 	int index;
+	
+	int vid_counter, msc_counter, pic_counter, doc_counter;
+	vid_counter = msc_counter = pic_counter = doc_counter = 0;
+	
+	char vid_list[255][255];
+	char msc_list[255][255];
+	char pic_list[255][255];
+	char doc_list[255][255];
 
 	struct passwd *pw = getpwuid(getuid());
 	char* homeDirectory = pw -> pw_dir;
@@ -63,12 +75,10 @@ int main() {
 	DIR* directory;
 	struct dirent* dir;
 	
-
 	size_t len_videos_ext = len(videos_ext);
 	size_t len_audios_ext = len(audios_ext);
 	size_t len_documents_ext = len(documents_ext);
 	size_t len_images_ext = len(images_ext);
-	
 
 	directory = opendir(LookUpDirectory);
 	if (directory) {
@@ -76,8 +86,8 @@ int main() {
 		      char* list = dir -> d_name; // list of all files founded in look up directory (LookUpDirectory)
 
 		      char *listlwr = (char*) malloc(250 * sizeof(char));
-                      strcpy(listlwr, list);
-		      strlwr(listlwr);
+                      strcpy(listlwr, list); // cloning list in listlwr
+		      strlwr(listlwr); // lowering listlwr to compare it with lower listed extensions safely
 		      
 		      // If any listed file from the look up directory (LookUpDirectory) ends with any of video extensions (videos_ext) list
 		      for (index = 0; index < len_videos_ext; index++) {
@@ -85,8 +95,17 @@ int main() {
 				char* source = join(LookUpDirectory, list);
 				char*  destination = join(DestinationForVideos, list);
 				
-				/* moving files from where it was to the desired destination */
-				if (rename(source, destination) != 0) perror("Error: \n");
+				/* if show is true script will show up all of matches */
+				if (show) {
+				   strcpy(vid_list[vid_counter], source);
+				   vid_counter++;
+				}				
+
+				/* if execute is true move files from where it was to the desired destination */
+				if (execute) {
+				    if (rename(source, destination) != 0) perror("Error");
+				}
+
 				free(source);
 				free(destination);
 			  }
@@ -98,21 +117,17 @@ int main() {
 				char* source = join(LookUpDirectory, list);
 				char*  destination = join(DestinationForMusic, list);
 
-				/* moving files from where it was to the desired destination */
-				if (rename(source, destination) != 0) perror("Error: \n");
-				free(source);
-				free(destination);
-			  }
-		      }
+				/* if show is true script will show up all of matches */
+				if (show) {
+				   strcpy(msc_list[msc_counter], source);
+				   msc_counter++;
+				}
 
-		      // If any listed file from the look up directory (LookUpDirectory) ends with any of document extensions (documents_ext) list
-		      for (index = 0; index < len_documents_ext; index++) {
-			  if (endsWith(listlwr, documents_ext[index])) {
-				char* source = join(LookUpDirectory, list);
-				char*  destination = join(DestinationForDocuments, list);
+				/* if execute is true move files from where it was to the desired destination */
+				if (execute) {
+				    if (rename(source, destination) != 0) perror("Error");
+				}
 
-				/* moving files from where it was to the desired destination */
-				if (rename(source, destination) != 0) perror("Error: \n");
 				free(source);
 				free(destination);
 			  }
@@ -124,15 +139,96 @@ int main() {
 				char* source = join(LookUpDirectory, list);
 				char*  destination = join(DestinationForPictures, list);
 
-				/* moving files from where it was to the desired destination */
-				if (rename(source, destination) != 0) perror("Error: \n");
+				/* if show is true script will show up all of matches */
+				if (show) {
+				   strcpy(pic_list[pic_counter], source);
+				   pic_counter++;
+				}
+
+				/* if execute is true move files from where it was to the desired destination */
+				if (execute) {
+				    if (rename(source, destination) != 0) perror("Error");
+				}
+
+				free(source);
+				free(destination);
+			  }
+		      }
+
+		      // If any listed file from the look up directory (LookUpDirectory) ends with any of document extensions (documents_ext) list
+		      for (index = 0; index < len_documents_ext; index++) {
+			  if (endsWith(listlwr, documents_ext[index])) {
+				char* source = join(LookUpDirectory, list);
+				char*  destination = join(DestinationForDocuments, list);
+
+				/* if show is true script will show up all of matches */
+				if (show) {
+				   strcpy(doc_list[doc_counter], source);
+				   doc_counter++;
+				}
+
+				/* if execute is true move files from where it was to the desired destination */
+				if (execute) {
+				    if (rename(source, destination) != 0) perror("Error");
+				}
+
 				free(source);
 				free(destination);
 			  }
 		      }
 		      free(listlwr);
 		}
+		if (show) {
+		   for (index = 0; index < vid_counter; index++) {
+		       if (index == 0)
+			  printf("----------------------------- VIDEOS ----------------------------------\n\n");
+
+		       printf("%s\n", vid_list[index]);
+
+		       if (index == (vid_counter - 1))
+			  printf("\n--------------------------- END OF VIDEOS -----------------------------\n\n\n");
+		   }
+	           
+                   for (index = 0; index < msc_counter; index++) {
+		       if (index == 0)
+			  printf("----------------------------- AUDIOS ---------------------------------\n\n");
+
+		       printf("%s\n", msc_list[index]);
+
+		       if (index == (msc_counter - 1))
+			  printf("\n------------------------- END OF AUDIOS ----------------------------\n\n\n");
+		   }
+
+                   for (index = 0; index < pic_counter; index++) {
+		       if (index == 0)
+			  printf("---------------------------- PICTURES ---------------------------------\n\n");
+
+		       printf("%s\n", pic_list[index]);
+
+		       if (index == (pic_counter - 1))
+			  printf("\n--------------------------- END OF PICTURES ---------------------------\n\n\n");
+		   }
+
+                   for (index = 0; index < doc_counter; index++) {
+		       if (index == 0)
+			  printf("---------------------------------- DOCUMENTS --------------------------\n");
+
+		       printf("%s\n", doc_list[index]);
+
+		       if (index == (doc_counter - 1))
+			  printf("\n--------------------------- END OF DOCUMENTS  -------------------------\n\n\n");
+		   }
+                   
+		   printf("\n--------- SUMMARY ---------\n");
+  		   printf("All videos founded: %d\n", vid_counter);
+		   printf("All Audios founded: %d\n", msc_counter);
+		   printf("All Documents founded: %d\n", doc_counter);
+		   printf("All Pictures founded: %d\n", pic_counter);
+		   printf("\n---------- END -----------\n\n\n");
+		}
     		closedir(directory);
+	} else {
+          perror("Error");
 	}
 	return 0;
 }
