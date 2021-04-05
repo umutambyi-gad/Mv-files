@@ -2,17 +2,6 @@
 
 Mv-files is C script for moving files ends with particular suffix (extension) from one folder to the desired destination on the same file system.
 
-## Table of content
-
-<ul>
-  <li><b><a href="#why-i-made-this">Why I made this?</a></b></li>
-  <li><b><a href="#author">Author</a></b></li>
-  <li><b><a href="#description">Description</a></b></li>
-  <li><b><a href="#usage">Usage</a></b></li>
-  <li><b><a href="#license">License</a></b></li>
-</ul>
-
-
 ## Why I made this?
 
 What if is you asking me? I will say **Good question**, Since I'm dev I mean Junior one I download bunch of different files
