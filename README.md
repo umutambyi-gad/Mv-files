@@ -12,6 +12,7 @@ So that's why I created script where you can simply categories files by their ex
 files can't only be in the Downloads can be everywhere you want it to be. just continue to read and you'll star the repo later.
 
 ## Author
+**Gitlab** [@umutambyi-gad](https://gitlab.com/umutambyi-gad) <br>
 **Website:** [umutambyigad](https://umutambyigad.herokuapp.com) <br>
 **Stackoverflow:** [@umutambyi-gad](https://stackoverflow.com/users/13536893/umutambyi-gad) <br>
 **Twitter:** [@umutambyi_gad](https://twitter.com/umutambyi_gad) <br>
